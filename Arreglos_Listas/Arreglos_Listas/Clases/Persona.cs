@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Clase3Proyect.Class
+namespace Arreglos_Listas.Class
 {
     internal class Persona
     {
@@ -38,6 +38,11 @@ namespace Clase3Proyect.Class
             ts = DateTime.Today - FechaNacimiento;
             DateTime edad = new DateTime(ts.Ticks);
             return edad.Year - 1;
+        }
+
+        public bool isMayorEdad()
+        {
+            return (Edad() >= 18) ? true : false;
         }
     }
 }

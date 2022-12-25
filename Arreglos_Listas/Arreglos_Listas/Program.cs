@@ -1,21 +1,44 @@
-﻿//1.Dado que se tiene almacenado en una lista, los resultados de los últimos 10
+﻿using Arreglos_Listas.Class;
+
+#region ejercicio_1
+//1.Dado que se tiene almacenado en una lista, los resultados de los últimos 10
 //exámenes de un alumno, calcular su promedio y mostrar por pantalla las 10
 //notas de los exámenes y el promedio resultante.
+
 
 List<int> examen = new List<int> { 5, 8, 10, 8, 6, 1, 7, 9, 4, 6 };
 
 int sumaNotas = examen.Sum();
 int cantNotas = examen.Count;
 double  result =  sumaNotas / cantNotas;
-Console.WriteLine(result);
+Console.WriteLine("El promedio de notas es: " + result);
+#endregion
 
-
-
-
-
-
+#region ejercicio_2
 //2. Dada las edades de 20 personas guardadas en una lista, imprimir por
 //pantalla cuántos son mayores de edad y cuántos no.
+
+List<int> edades = new List<int> { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+int menores = 0;
+int mayores = 0;
+
+edades.ForEach(edad =>
+{
+    if (edad >= 18) mayores++;
+    else menores++;
+});
+Console.WriteLine($"Hay {mayores} mayores de edad y {menores} menores de edad.");
+
+//no correspondia
+//Persona persona = new Persona("juan", "Gonzales", new DateTime(1980, 01, 01));
+//Console.WriteLine(persona.isMayorEdad());
+
+
+
+
+
+
+#endregion
 //3. Dado una lista de nombres de estudiantes, imprimir el que tenga más letras, y
 //el que tenga menos letras de todos.
 //4. Crear una variable para guardar los nombres de elementos para una “lista de
