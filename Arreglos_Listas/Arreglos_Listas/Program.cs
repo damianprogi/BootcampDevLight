@@ -39,6 +39,21 @@ Console.WriteLine($"Hay {mayores} mayores de edad y {menores} menores de edad.")
 //3. Dado una lista de nombres de estudiantes, imprimir el que tenga más letras, y
 //el que tenga menos letras de todos.
 
+List<string> nombres = new List<string> { "juan", "martin", "damian", "ana", "marcela"};
+string masLargo = "";
+string masCorto= "";
+
+nombres.ForEach(nom =>
+{
+    if (nom.Length > masLargo.Length)
+        masLargo = nom;
+
+    if (nom.Length < masCorto.Length || masCorto.Length==0)
+        masCorto = nom;
+});
+
+Console.WriteLine($"El nombre más largo es: {masLargo}; y el más corto es: {masCorto}");
+
 
 
 
