@@ -10,7 +10,7 @@ List<int> examen = new List<int> { 5, 8, 10, 8, 6, 1, 7, 9, 4, 6 };
 
 int sumaNotas = examen.Sum();
 int cantNotas = examen.Count;
-double  result =  sumaNotas / cantNotas;
+double result = sumaNotas / cantNotas;
 Console.WriteLine("El promedio de notas es: " + result);
 #endregion
 
@@ -39,16 +39,16 @@ Console.WriteLine($"Hay {mayores} mayores de edad y {menores} menores de edad.")
 //3. Dado una lista de nombres de estudiantes, imprimir el que tenga más letras, y
 //el que tenga menos letras de todos.
 
-List<string> nombres = new List<string> { "juan", "martin", "damian", "ana", "marcela"};
+List<string> nombres = new List<string> { "juan", "martin", "damian", "ana", "marcela" };
 string masLargo = "";
-string masCorto= "";
+string masCorto = "";
 
 nombres.ForEach(nom =>
 {
     if (nom.Length > masLargo.Length)
         masLargo = nom;
 
-    if (nom.Length < masCorto.Length || masCorto.Length==0)
+    if (nom.Length < masCorto.Length || masCorto.Length == 0)
         masCorto = nom;
 });
 
@@ -59,6 +59,8 @@ Console.WriteLine($"El nombre más largo es: {masLargo}; y el más corto es: {ma
 
 
 #endregion
+
+#region ejercicio_4
 //4. Crear una variable para guardar los nombres de elementos para una “lista de
 //supermercado”. Solicitar al usuario que ingrese el nombre de un elemento
 //que va a comprar en el super y verificar que el elemento esté en la lista. Si no
@@ -67,6 +69,50 @@ Console.WriteLine($"El nombre más largo es: {masLargo}; y el más corto es: {ma
 //los que compró, pero no estaban en la lista. Si se quiere, mostrar también
 //todos los elementos que el usuario compró. Para salir el usuario debe
 //ingresar “fin”.
+
+bool continuar = true;
+string elemento = "";
+bool buscado = false;
+List<string> listaSuper = new List<string>();
+List<string> noCompro = new List<string>();
+do
+{
+    Console.WriteLine("Ingrese elemento a la lista");
+    elemento = Console.ReadLine();
+
+    buscado = listaSuper.Contains(elemento);
+
+    if (elemento == "fin")
+        continuar = false;
+    else
+    {
+        if (!buscado)
+        {
+            listaSuper.Add(elemento);
+            noCompro.Remove(elemento);
+            Console.WriteLine($"El {elemento} se agrega a la lista porque no estaba");
+        }
+        else
+        {
+            Console.WriteLine($"El {elemento} ya existe en la lista, se quitará");
+            listaSuper.Remove(elemento);
+            noCompro.Add(elemento);
+        }
+    }
+
+
+} while (continuar);
+
+
+listaSuper.ForEach(nom =>
+    Console.WriteLine("compra: " + nom));
+
+noCompro.ForEach(nom =>
+    Console.WriteLine("no compra: " + nom));
+
+
+
+#endregion
 //5. Crear una matriz de 5 x 5. Almacenar una ‘I’ en lugares impares y una ‘P’ en
 //lugares pares. Imprimir la matriz por pantalla
 //6. Se tiene una matriz de 5x7, donde 5 representa la semana de un mes y 7 los
