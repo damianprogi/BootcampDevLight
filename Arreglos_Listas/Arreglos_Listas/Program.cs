@@ -33,14 +33,17 @@ Console.WriteLine($"Hay {mayores} mayores de edad y {menores} menores de edad.")
 //Persona persona = new Persona("juan", "Gonzales", new DateTime(1980, 01, 01));
 //Console.WriteLine(persona.isMayorEdad());
 
+#endregion
+
+#region ejercicio_3
+//3. Dado una lista de nombres de estudiantes, imprimir el que tenga más letras, y
+//el que tenga menos letras de todos.
 
 
 
 
 
 #endregion
-//3. Dado una lista de nombres de estudiantes, imprimir el que tenga más letras, y
-//el que tenga menos letras de todos.
 //4. Crear una variable para guardar los nombres de elementos para una “lista de
 //supermercado”. Solicitar al usuario que ingrese el nombre de un elemento
 //que va a comprar en el super y verificar que el elemento esté en la lista. Si no
