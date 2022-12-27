@@ -145,10 +145,6 @@ for (int i = 0; i < matriz.GetLength(0); i++)
 //con valores aleatorios desde el principio del programa, no es necesario pedir
 //los valores al usuario para cada posición). Se nos pide hacer lo siguiente:
 
-
-//b.Promedio de temperatura de la semana.
-//c. Temperatura más alta del mes y su día.
-
 int[,] tempCabina = new int[5, 7];
 Random rand = new Random();
 string espacio = "";
@@ -171,21 +167,56 @@ for (int i = 0; i < tempCabina.GetLength(0); i++)
     }
     Console.WriteLine();
 }
+
 //a.Obtener la temperatura más alta y baja de la semana y que día se
 //produjo (lunes, martes, etc.)
-int max = 0;
-int min = 100;
+//b.Promedio de temperatura de la semana.
+//c. Temperatura más alta del mes y su día.
+
+int diaMax = 0, max = diaMax;
+int diaMin = 100, min = diaMin;
+int sumaSemana = 0, countDiasSemana = sumaSemana;
+List<int> ListDiaAlta = new List<int>();
+
 for (int i = 0; i < tempCabina.GetLength(0); i++)
 {
     for (int j = 0; j < tempCabina.GetLength(1); j++)
     {
-        max = (tempCabina[i,j] > max) ? tempCabina[i,j] : max;
-        min = (tempCabina[i, j] < min) ? tempCabina[i, j] : min;
-    }
-    Console.WriteLine($"La temperatura máxima de la semana {i} fue {max} grados y se produjo el ");
-    Console.WriteLine($"La temperatura mínima de la semana {i} fue {min} grados y se produjo el ");
-}
+        if (tempCabina[i, j] != 0)
+        {
+            if (tempCabina[i, j] > max)
+            {
+                max = tempCabina[i, j];
+                diaMax = j;
+            }
 
+            if (tempCabina[i, j] < min)
+            {
+                min = tempCabina[i, j];
+                diaMin = j;
+            }
+
+            sumaSemana += tempCabina[i, j];
+            countDiasSemana += 1;
+        }
+    }
+    Console.WriteLine($"a) La temperatura máx.de la semana {i+1} fue {max}ºC y se produjo el {(DIAS)diaMax}; y la mín. fue {min}ºC y sucedió el {(DIAS)diaMin}" );
+    Console.WriteLine($"b) El promedio de temperatura de la semana {i+1} fue {sumaSemana/countDiasSemana}°C");
+    sumaSemana = countDiasSemana = diaMax = max = 0;
+    diaMin = min = 100;
+    
+}
+    Console.WriteLine($"c) La temperatura más alta del mes fue {sumaSemana / countDiasSemana}");
+enum DIAS
+{
+    domingo,
+    lunes,
+    martes,
+    miercoles,
+    jueves,
+    viernes,
+    sabado
+};
 
 #endregion
 
@@ -212,3 +243,4 @@ for (int i = 0; i < tempCabina.GetLength(0); i++)
 //imprimir por pantalla la matriz con sus correspondientes X, mostrando un *
 //donde no haya nada.
 #endregion
+
