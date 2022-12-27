@@ -113,8 +113,28 @@ noCompro.ForEach(nom =>
 
 
 #endregion
+
+#region ejercicio_5
 //5. Crear una matriz de 5 x 5. Almacenar una ‘I’ en lugares impares y una ‘P’ en
 //lugares pares. Imprimir la matriz por pantalla
+
+char[,] matriz = new char[5,5];
+//int dimensiones = matriz.Rank;
+
+for (int i = 0; i < matriz.GetLength(0); i++)
+{
+    for (int j = 0; j < matriz.GetLength(1); j++)
+    {
+        if ((i + j - 1) % 2 == 0) matriz[i, j] = 'P';
+        else matriz[i, j] = 'I';
+        Console.Write(matriz[i, j]);
+    }
+    Console.WriteLine();
+}
+
+
+
+#endregion
 //6. Se tiene una matriz de 5x7, donde 5 representa la semana de un mes y 7 los
 //días de la semana. La estructura es para registrar la temperatura diaria de
 //una cabina de pago, estos oscilan entre los 7 y 38 grados. Deberá llenar la
