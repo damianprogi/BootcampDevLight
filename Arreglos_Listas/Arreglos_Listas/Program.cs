@@ -118,7 +118,7 @@ noCompro.ForEach(nom =>
 //5. Crear una matriz de 5 x 5. Almacenar una ‘I’ en lugares impares y una ‘P’ en
 //lugares pares. Imprimir la matriz por pantalla
 
-char[,] matriz = new char[5,5];
+char[,] matriz = new char[5, 5];
 //int dimensiones = matriz.Rank;
 
 for (int i = 0; i < matriz.GetLength(0); i++)
@@ -135,6 +135,8 @@ for (int i = 0; i < matriz.GetLength(0); i++)
 
 
 #endregion
+
+#region ejercicio_6
 //6. Se tiene una matriz de 5x7, donde 5 representa la semana de un mes y 7 los
 //días de la semana. La estructura es para registrar la temperatura diaria de
 //una cabina de pago, estos oscilan entre los 7 y 38 grados. Deberá llenar la
@@ -142,16 +144,64 @@ for (int i = 0; i < matriz.GetLength(0); i++)
 //lunes y el último (31) se ubica en el miércoles (la matriz puede ser inicializada
 //con valores aleatorios desde el principio del programa, no es necesario pedir
 //los valores al usuario para cada posición). Se nos pide hacer lo siguiente:
-//a.Obtener la temperatura más alta y baja de la semana y que día se
-//produjo (lunes, martes, etc.)
+
+
 //b.Promedio de temperatura de la semana.
 //c. Temperatura más alta del mes y su día.
+
+int[,] tempCabina = new int[5, 7];
+Random rand = new Random();
+string espacio = "";
+int cont = 31;
+
+for (int i = 0; i < tempCabina.GetLength(0); i++)
+{
+    for (int j = 0; j < tempCabina.GetLength(1); j++)
+    {
+        if ((i + j) == 0 || cont == 0)
+            Console.Write("  --");
+        else
+            if (cont != 0)
+        {
+            tempCabina[i, j] = (int)rand.NextInt64(7, 39);
+            espacio = tempCabina[i, j] < 10 ? "   " : "  ";
+            Console.Write(espacio + tempCabina[i, j]);
+            cont--;
+        }
+    }
+    Console.WriteLine();
+}
+//a.Obtener la temperatura más alta y baja de la semana y que día se
+//produjo (lunes, martes, etc.)
+int max = 0;
+int min = 100;
+for (int i = 0; i < tempCabina.GetLength(0); i++)
+{
+    for (int j = 0; j < tempCabina.GetLength(1); j++)
+    {
+        max = (tempCabina[i,j] > max) ? tempCabina[i,j] : max;
+        min = (tempCabina[i, j] < min) ? tempCabina[i, j] : min;
+    }
+    Console.WriteLine($"La temperatura máxima de la semana {i} fue {max} grados y se produjo el ");
+    Console.WriteLine($"La temperatura mínima de la semana {i} fue {min} grados y se produjo el ");
+}
+
+
+#endregion
+
+
+
+#region ejercicio_7
 //7. Almacenar en una matriz las tablas del 1 al 9, teniendo en cuenta que en la
 //primera fila y la primera columna se debe guardar los números (de 0 a 9),
 //estando el cero en la primera posición (fila 0, columna 0). El resto de los
 //lugares debe ser calculado usando los números que se dispone, por ejemplo,
 //en la fila 1, calcular 1*1, 1*2, 1*3, etc. usando las posiciones del array o
 //arreglo. Al finalizar el cálculo, mostrar la matriz por pantalla
+#endregion
+
+
+#region ejercicio_8
 //8. Crear una matriz de 10 x 10, y “esconder” varias ‘X’ en lugares aleatorios (la
 //cantidad que el programador decida, pero no más de la mitad de los lugares
 //disponibles en la matriz). El usuario deberá ingresar el lugar donde cree que
@@ -161,3 +211,4 @@ for (int i = 0; i < matriz.GetLength(0); i++)
 //sea porque se terminaron los 3 intentos, o el jugador acertó todas las X)
 //imprimir por pantalla la matriz con sus correspondientes X, mostrando un *
 //donde no haya nada.
+#endregion
