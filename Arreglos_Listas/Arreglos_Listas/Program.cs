@@ -77,7 +77,7 @@ List<string> listaSuper = new List<string>();
 List<string> noCompro = new List<string>();
 do
 {
-    Console.WriteLine("Ingrese elemento a la lista");
+    Console.WriteLine("Ingrese elemento a la lista (ingrese 'fin' para terminar)");
     elemento = Console.ReadLine();
 
     buscado = listaSuper.Contains(elemento);
@@ -176,7 +176,7 @@ for (int i = 0; i < tempCabina.GetLength(0); i++)
 int diaMax = 0, max = diaMax;
 int diaMin = 100, min = diaMin;
 int sumaSemana = 0, countDiasSemana = sumaSemana;
-List<int> ListDiaAlta = new List<int>();
+List<Tuple<int, int, int>> ListDiaAlta = new List<Tuple<int, int, int>>();
 
 for (int i = 0; i < tempCabina.GetLength(0); i++)
 {
@@ -188,6 +188,24 @@ for (int i = 0; i < tempCabina.GetLength(0); i++)
             {
                 max = tempCabina[i, j];
                 diaMax = j;
+
+                if (ListDiaAlta.Count == 0)
+                    ListDiaAlta.Add(new Tuple<int, int, int>(i, j, max));
+                else if (max >= ListDiaAlta[0].Item3)
+                {
+                    ListDiaAlta.Add(new Tuple<int, int, int>(i, j, max));
+                }
+
+                for (int k = 0; k < ListDiaAlta.Count; k++)
+                {
+                    if (ListDiaAlta[k].Item3 < max)
+                        ListDiaAlta.RemoveAt(k);
+                }
+                //ListDiaAlta.ForEach(x =>
+                //{
+                //    Console.WriteLine($"i: {x.Item1}; j:{x.Item2}, max:{x.Item3}");
+                //});
+
             }
 
             if (tempCabina[i, j] < min)
@@ -200,13 +218,17 @@ for (int i = 0; i < tempCabina.GetLength(0); i++)
             countDiasSemana += 1;
         }
     }
-    Console.WriteLine($"a) La temperatura máx.de la semana {i+1} fue {max}ºC y se produjo el {(DIAS)diaMax}; y la mín. fue {min}ºC y sucedió el {(DIAS)diaMin}" );
-    Console.WriteLine($"b) El promedio de temperatura de la semana {i+1} fue {sumaSemana/countDiasSemana}°C");
+    Console.WriteLine($"a) La temperatura máx.de la semana {i + 1} fue {max}ºC y se produjo el {(DIAS)diaMax}; y la mín. fue {min}ºC y sucedió el {(DIAS)diaMin}");
+    Console.WriteLine($"b) El promedio de temperatura de la semana {i + 1} fue {sumaSemana / countDiasSemana}°C");
+
     sumaSemana = countDiasSemana = diaMax = max = 0;
     diaMin = min = 100;
-    
+
 }
-    Console.WriteLine($"c) La temperatura más alta del mes fue {sumaSemana / countDiasSemana}");
+ListDiaAlta.ForEach(x =>
+{
+    Console.WriteLine($"c) La temperatura más alta del mes fue de {x.Item3} el día {(DIAS)x.Item2}, {x.Item1 * 7 + x.Item2} de mayo");
+});
 enum DIAS
 {
     domingo,
@@ -217,6 +239,7 @@ enum DIAS
     viernes,
     sabado
 };
+
 
 #endregion
 
@@ -229,6 +252,10 @@ enum DIAS
 //lugares debe ser calculado usando los números que se dispone, por ejemplo,
 //en la fila 1, calcular 1*1, 1*2, 1*3, etc. usando las posiciones del array o
 //arreglo. Al finalizar el cálculo, mostrar la matriz por pantalla
+
+
+
+
 #endregion
 
 
