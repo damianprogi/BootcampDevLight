@@ -240,8 +240,23 @@ ListDiaAlta.ForEach(x =>
 
 Console.WriteLine("EJERCICIO 7");
 
-int[,] matriz = new Array<[int,int]>(10);
+int[,] matrizTabla = new int[10, 10];
 
+for (int i = 0; i < matrizTabla.GetLength(0); i++)
+{
+    matrizTabla[i, 0] = i;
+    for (int j = 0; j < matrizTabla.GetLength(1); j++)
+    {
+        if ((j == 0) || (i == 0))
+            matrizTabla[0, j] = j;
+        else
+            matrizTabla[i, j] = matrizTabla[0, j] * matrizTabla[i, 0];
+
+        espacio = matrizTabla[i, j] < 10 ? "   " : "  ";
+        Console.Write(espacio + matrizTabla[i, j]);
+    }
+    Console.WriteLine();
+}
 
 #endregion
 
