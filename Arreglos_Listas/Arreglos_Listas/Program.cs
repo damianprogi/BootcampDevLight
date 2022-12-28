@@ -1,27 +1,24 @@
-﻿using Arreglos_Listas.Class;
-
-#region ejercicio_1
+﻿#region ejercicio_1
 //1.Dado que se tiene almacenado en una lista, los resultados de los últimos 10
 //exámenes de un alumno, calcular su promedio y mostrar por pantalla las 10
 //notas de los exámenes y el promedio resultante.
-
-
 List<int> examen = new List<int> { 5, 8, 10, 8, 6, 1, 7, 9, 4, 6 };
 
 int sumaNotas = examen.Sum();
 int cantNotas = examen.Count;
 double result = sumaNotas / cantNotas;
+Console.WriteLine("EJERCICIO 1");
 Console.WriteLine("El promedio de notas es: " + result);
 #endregion
 
 #region ejercicio_2
 //2. Dada las edades de 20 personas guardadas en una lista, imprimir por
 //pantalla cuántos son mayores de edad y cuántos no.
-
 List<int> edades = new List<int> { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
 int menores = 0;
 int mayores = 0;
 
+Console.WriteLine("EJERCICIO 2");
 edades.ForEach(edad =>
 {
     if (edad >= 18) mayores++;
@@ -38,11 +35,11 @@ Console.WriteLine($"Hay {mayores} mayores de edad y {menores} menores de edad.")
 #region ejercicio_3
 //3. Dado una lista de nombres de estudiantes, imprimir el que tenga más letras, y
 //el que tenga menos letras de todos.
-
 List<string> nombres = new List<string> { "juan", "martin", "damian", "ana", "marcela" };
 string masLargo = "";
 string masCorto = "";
 
+Console.WriteLine("EJERCICIO 3");
 nombres.ForEach(nom =>
 {
     if (nom.Length > masLargo.Length)
@@ -69,12 +66,12 @@ Console.WriteLine($"El nombre más largo es: {masLargo}; y el más corto es: {ma
 //los que compró, pero no estaban en la lista. Si se quiere, mostrar también
 //todos los elementos que el usuario compró. Para salir el usuario debe
 //ingresar “fin”.
-
 bool continuar = true;
 string elemento = "";
 bool buscado = false;
 List<string> listaSuper = new List<string>();
 List<string> noCompro = new List<string>();
+Console.WriteLine("EJERCICIO 4");
 do
 {
     Console.WriteLine("Ingrese elemento a la lista (ingrese 'fin' para terminar)");
@@ -117,10 +114,10 @@ noCompro.ForEach(nom =>
 #region ejercicio_5
 //5. Crear una matriz de 5 x 5. Almacenar una ‘I’ en lugares impares y una ‘P’ en
 //lugares pares. Imprimir la matriz por pantalla
-
 char[,] matriz = new char[5, 5];
 //int dimensiones = matriz.Rank;
 
+Console.WriteLine("EJERCICIO 5");
 for (int i = 0; i < matriz.GetLength(0); i++)
 {
     for (int j = 0; j < matriz.GetLength(1); j++)
@@ -150,6 +147,7 @@ Random rand = new Random();
 string espacio = "";
 int cont = 31;
 
+Console.WriteLine("EJERCICIO 6");
 for (int i = 0; i < tempCabina.GetLength(0); i++)
 {
     for (int j = 0; j < tempCabina.GetLength(1); j++)
@@ -229,21 +227,8 @@ ListDiaAlta.ForEach(x =>
 {
     Console.WriteLine($"c) La temperatura más alta del mes fue de {x.Item3} el día {(DIAS)x.Item2}, {x.Item1 * 7 + x.Item2} de mayo");
 });
-enum DIAS
-{
-    domingo,
-    lunes,
-    martes,
-    miercoles,
-    jueves,
-    viernes,
-    sabado
-};
-
 
 #endregion
-
-
 
 #region ejercicio_7
 //7. Almacenar en una matriz las tablas del 1 al 9, teniendo en cuenta que en la
@@ -253,7 +238,9 @@ enum DIAS
 //en la fila 1, calcular 1*1, 1*2, 1*3, etc. usando las posiciones del array o
 //arreglo. Al finalizar el cálculo, mostrar la matriz por pantalla
 
+Console.WriteLine("EJERCICIO 7");
 
+int[,] matriz = new Array<[int,int]>(10);
 
 
 #endregion
@@ -271,3 +258,13 @@ enum DIAS
 //donde no haya nada.
 #endregion
 
+enum DIAS
+{
+    domingo,
+    lunes,
+    martes,
+    miercoles,
+    jueves,
+    viernes,
+    sabado
+};
