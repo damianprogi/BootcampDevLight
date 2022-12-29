@@ -271,7 +271,129 @@ for (int i = 0; i < matrizTabla.GetLength(0); i++)
 //sea porque se terminaron los 3 intentos, o el jugador acertó todas las X)
 //imprimir por pantalla la matriz con sus correspondientes X, mostrando un *
 //donde no haya nada.
+
+Console.WriteLine("EJERCICIO 8");
+
+char[,] tablero = new char[10, 10];
+int[] posRandom;
+int cantX = 50;
+int[] acertadas;
+espacio = " ";
+int casilla;
+int fila;
+int columna;
+bool isFila;
+bool isCol;
+int intentosRealizados = 0;
+int fallos = 3;
+int filasTablero = tablero.GetLength(0);
+int colTablero = tablero.GetLength(1);
+posRandom = Valor(cantX, tablero);
+
+Console.WriteLine($"El tablero es un tablero {filasTablero}x{colTablero}, comienza en 1 y termina en 10");
+
+DibujadorDeMatriz();
+Proceso();
+Resultados();
+
+void DibujadorDeMatriz()
+{
+    for (int i = 0; i < filasTablero; i++)
+    {
+
+        for (int j = 0; j < colTablero; j++)
+        {
+            casilla = (i * colTablero) + j;
+
+            if (posRandom.Contains(casilla))
+                tablero[i, j] = 'X';
+            else
+                tablero[i, j] = '*';
+
+            Console.Write(espacio + tablero[i, j]);
+        }
+        Console.WriteLine();
+    }
+}
+void Proceso()
+{
+    do
+    {
+        do
+        {
+            Console.WriteLine("ingrese una fila: ");
+            espacio = Console.ReadLine();
+            isFila = int.TryParse(espacio, out fila);
+
+        } while (!isFila);
+
+        do
+        {
+            Console.WriteLine("ingrese una columna: ");
+            espacio = Console.ReadLine();
+            isCol = int.TryParse(espacio, out columna);
+
+        } while (!isCol);
+
+        if (columna <= colTablero && fila <= filasTablero && fila > 0 && columna > 0)
+        {
+
+            if (tablero[fila - 1, columna - 1].Equals('X'))
+            {
+                Console.WriteLine("ACERTASTE!!!");
+                //aca va lo otro
+                acertadas.Append(5);
+            }
+            else
+            {
+                Console.WriteLine("FALLASTE!!!");
+                fallos -= 1;
+            }
+            intentosRealizados += 1;
+        }
+        else
+            Console.WriteLine($"la matriz tiene {filasTablero} x {colTablero}, solo se admiten esos valores");
+
+
+    } while ((fallos != 0) && (cantX > intentosRealizados));
+}
+
+
+
+void Resultados()
+{
+    if (fallos == 0)
+        Console.WriteLine($"Fallaste las veces permitidas y quedaste afuera mi gente");
+    else
+    {
+        if (cantX == acertadas)
+            Console.WriteLine($"GANASTE!!!!!");
+        else Console.WriteLine($"PERDISTE, TE QUEDASTE SIN INTENTOS");
+    }
+}
+
 #endregion
+
+int[] Valor(int repeticion, char[,] table)
+{
+    Random random = new Random();
+    int[] posicion = new int[repeticion];
+    int casillas = filasTablero * colTablero;
+    int valor;
+
+    for (int i = 0; i < repeticion; i++)
+    {
+        do
+        {
+            valor = random.Next(0, casillas + 1);
+        } while (posicion.Contains(valor));
+        posicion[i] = valor;
+    }
+
+    return posicion;
+}
+
+
 
 enum DIAS
 {
