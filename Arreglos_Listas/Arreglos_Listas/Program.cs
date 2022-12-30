@@ -273,11 +273,10 @@ for (int i = 0; i < matrizTabla.GetLength(0); i++)
 //donde no haya nada.
 
 Console.WriteLine("EJERCICIO 8");
-
-char[,] tablero = new char[10, 10];
-int[] posRandom;
-int cantX = 50;
-int[] acertadas;
+int tamañoTablero = 10;
+char[,] tablero = new char[tamañoTablero, tamañoTablero];
+int cantDeEquis = 5;
+List<int> aciertos = new List<int>();
 espacio = " ";
 int casilla;
 int fila;
@@ -288,9 +287,9 @@ int intentosRealizados = 0;
 int fallos = 3;
 int filasTablero = tablero.GetLength(0);
 int colTablero = tablero.GetLength(1);
-posRandom = Valor(cantX, tablero);
+int[] posRandom = Valor(cantDeEquis, tablero);
 
-Console.WriteLine($"El tablero es un tablero {filasTablero}x{colTablero}, comienza en 1 y termina en 10");
+Console.WriteLine($"El tablero es un tablero {tamañoTablero}x{tamañoTablero}, comienza en 1 y termina en {tamañoTablero}");
 
 DibujadorDeMatriz();
 Proceso();
@@ -340,36 +339,41 @@ void Proceso()
 
             if (tablero[fila - 1, columna - 1].Equals('X'))
             {
-                Console.WriteLine("ACERTASTE!!!");
-                //aca va lo otro
-                acertadas.Append(5);
+                if (!aciertos.Contains(fila * columna + columna))
+                {
+                    Console.WriteLine("ACERTASTE!!!");
+                    aciertos.Add(fila * columna + columna);
+                    intentosRealizados += 1;
+                } else
+                {
+                    Console.WriteLine("REPETISTE!!!");
+                    fallos -= 1;
+                }
             }
             else
             {
                 Console.WriteLine("FALLASTE!!!");
                 fallos -= 1;
             }
-            intentosRealizados += 1;
         }
         else
             Console.WriteLine($"la matriz tiene {filasTablero} x {colTablero}, solo se admiten esos valores");
 
 
-    } while ((fallos != 0) && (cantX > intentosRealizados));
+    } while ((fallos != 0) && (cantDeEquis > intentosRealizados));
 }
 
 
 
 void Resultados()
 {
-    if (fallos == 0)
-        Console.WriteLine($"Fallaste las veces permitidas y quedaste afuera mi gente");
-    else
-    {
-        if (cantX == acertadas)
-            Console.WriteLine($"GANASTE!!!!!");
-        else Console.WriteLine($"PERDISTE, TE QUEDASTE SIN INTENTOS");
-    }
+    aciertos.ForEach((x) => Console.WriteLine(x));
+    Console.WriteLine(aciertos.Count);
+    string textResultado = "Fallaste las TRES veces permitidas y quedaste afuera mi gente";
+    if (fallos > 0)
+        textResultado = (cantDeEquis == aciertos.Count) ? "GANASTE!!!!!" : "PERDISTE, TE QUEDASTE SIN INTENTOS";
+
+    Console.WriteLine(textResultado);
 }
 
 #endregion
@@ -391,6 +395,11 @@ int[] Valor(int repeticion, char[,] table)
     }
 
     return posicion;
+}
+
+int PesoCasilla(int filaCasilla, int colCasilla)
+{
+    return filaCasilla * colCasilla + filaCasilla;
 }
 
 
