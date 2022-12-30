@@ -273,49 +273,68 @@ for (int i = 0; i < matrizTabla.GetLength(0); i++)
 //donde no haya nada.
 
 Console.WriteLine("EJERCICIO 8");
+
 int tamañoTablero = 10;
 char[,] tablero = new char[tamañoTablero, tamañoTablero];
-int cantDeEquis = 5;
+int cantDeEquis;
 List<int> aciertos = new List<int>();
 espacio = " ";
 int casilla;
-int fila;
-int columna;
-bool isFila;
-bool isCol;
-int intentosRealizados = 0;
 int fallos = 3;
-int filasTablero = tablero.GetLength(0);
-int colTablero = tablero.GetLength(1);
-int[] posRandom = Valor(cantDeEquis, tablero);
+bool ok = false;
 
-Console.WriteLine($"El tablero es un tablero {tamañoTablero}x{tamañoTablero}, comienza en 1 y termina en {tamañoTablero}");
+Console.WriteLine($"El tablero es un tablero {tamañoTablero}x{tamañoTablero}, comienza en la posicion 1 y termina en {tamañoTablero}");
+do
+{
+    Console.WriteLine($"Ingrese la cantidad de 'X' escondidas que desea tener; se permiten la mitad o menos");
+    ok = int.TryParse(Console.ReadLine(), out cantDeEquis);
+} while (!ok ^ (cantDeEquis * 2 > Math.Pow(tamañoTablero,2)));
 
-DibujadorDeMatriz();
+CreadorDeMatriz();
+//DibujadorDeMatriz();
 Proceso();
 Resultados();
+DibujadorDeMatriz();
 
-void DibujadorDeMatriz()
+void CreadorDeMatriz()
 {
-    for (int i = 0; i < filasTablero; i++)
+    int[] posicionDeTodasLasEquis = LugaresDeEquis(cantDeEquis);
+
+    for (int i = 0; i < tamañoTablero; i++)
     {
-
-        for (int j = 0; j < colTablero; j++)
+        for (int j = 0; j < tamañoTablero; j++)
         {
-            casilla = (i * colTablero) + j;
+            casilla = PesoCasilla(i, j);
 
-            if (posRandom.Contains(casilla))
+            if (posicionDeTodasLasEquis.Contains(casilla))
                 tablero[i, j] = 'X';
             else
                 tablero[i, j] = '*';
+        }
+    }
+}
 
+void DibujadorDeMatriz(){
+    espacio = " ";
+    for (int i = 0; i < tamañoTablero; i++)
+    {
+        for (int j = 0; j < tamañoTablero; j++)
+        {
             Console.Write(espacio + tablero[i, j]);
         }
         Console.WriteLine();
     }
 }
+
 void Proceso()
 {
+    string texto;
+    bool hayAcierto = false;
+    int intentosRealizados = 0;
+    bool isFila;
+    bool isCol;
+    int fila;
+    int columna;
     do
     {
         do
@@ -334,31 +353,27 @@ void Proceso()
 
         } while (!isCol);
 
-        if (columna <= colTablero && fila <= filasTablero && fila > 0 && columna > 0)
+        if (columna <= tamañoTablero && fila <= tamañoTablero && fila > 0 && columna > 0)
         {
+            casilla = PesoCasilla(fila, columna);
+            hayAcierto = aciertos.Contains(casilla);
 
-            if (tablero[fila - 1, columna - 1].Equals('X'))
+            if (tablero[fila - 1, columna - 1].Equals('X') && (!hayAcierto))
             {
-                if (!aciertos.Contains(fila * columna + columna))
-                {
-                    Console.WriteLine("ACERTASTE!!!");
-                    aciertos.Add(fila * columna + columna);
-                    intentosRealizados += 1;
-                } else
-                {
-                    Console.WriteLine("REPETISTE!!!");
-                    fallos -= 1;
-                }
+                texto = "ACERTASTE!!!";
+                aciertos.Add(casilla);
+                intentosRealizados += 1;
             }
             else
             {
-                Console.WriteLine("FALLASTE!!!");
+                texto = (hayAcierto) ? "REPETISTE!!!" : "FALLASTE!!!";
                 fallos -= 1;
             }
         }
         else
-            Console.WriteLine($"la matriz tiene {filasTablero} x {colTablero}, solo se admiten esos valores");
+            texto = $"la matriz tiene {tamañoTablero} x {tamañoTablero}, solo se admiten esos valores";
 
+        Console.WriteLine(texto);
 
     } while ((fallos != 0) && (cantDeEquis > intentosRealizados));
 }
@@ -367,8 +382,6 @@ void Proceso()
 
 void Resultados()
 {
-    aciertos.ForEach((x) => Console.WriteLine(x));
-    Console.WriteLine(aciertos.Count);
     string textResultado = "Fallaste las TRES veces permitidas y quedaste afuera mi gente";
     if (fallos > 0)
         textResultado = (cantDeEquis == aciertos.Count) ? "GANASTE!!!!!" : "PERDISTE, TE QUEDASTE SIN INTENTOS";
@@ -378,28 +391,28 @@ void Resultados()
 
 #endregion
 
-int[] Valor(int repeticion, char[,] table)
+int[] LugaresDeEquis(int repeticion)
 {
     Random random = new Random();
-    int[] posicion = new int[repeticion];
-    int casillas = filasTablero * colTablero;
+    int[] posicionesDeEquis = new int[repeticion];
+    int casillasTotales = tamañoTablero * tamañoTablero;
     int valor;
 
     for (int i = 0; i < repeticion; i++)
     {
         do
         {
-            valor = random.Next(0, casillas + 1);
-        } while (posicion.Contains(valor));
-        posicion[i] = valor;
+            valor = random.Next(0, casillasTotales + 1);
+        } while (posicionesDeEquis.Contains(valor));
+        posicionesDeEquis[i] = valor;
     }
 
-    return posicion;
+    return posicionesDeEquis;
 }
 
 int PesoCasilla(int filaCasilla, int colCasilla)
 {
-    return filaCasilla * colCasilla + filaCasilla;
+    return filaCasilla * tamañoTablero + colCasilla;
 }
 
 
