@@ -389,7 +389,7 @@ void Resultados()
     Console.WriteLine(textResultado);
 }
 
-#endregion
+
 
 int[] LugaresDeEquis(int repeticion)
 {
@@ -416,6 +416,7 @@ int PesoCasilla(int filaCasilla, int colCasilla)
 }
 
 
+#endregion
 
 enum DIAS
 {
